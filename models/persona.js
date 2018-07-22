@@ -39,52 +39,52 @@ var personaSchema = new Schema({
     elementals: {
         physical: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         gun: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         fire: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         ice: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         electric: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         wind: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         psychic: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         nuclear: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         bless: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         },
         curse: {
             type: String,
-            enum: ['weak', 'resist', 'absorb'],
+            enum: ['weak', 'resist', 'absorb', 'repel'],
             default: null,
         }
     },
@@ -98,14 +98,7 @@ var personaSchema = new Schema({
     //         type: String,
     //         enum: ['weak', 'resist', 'absorb'],
     //     }
-    // }],
-    skills: [
-        {
-            type: ObjectId,
-            ref: 'Skill',
-            required: true,
-        }
-    ]       
+    // }]    
 });
 
 var Persona = mongoose.model('Persona', personaSchema);
