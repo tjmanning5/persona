@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+var ObjectId = mongoose.Schema.ObjectId;
+
 var personaSchema = new Schema({
     name: {
         type: String,
@@ -97,5 +99,15 @@ var personaSchema = new Schema({
     //         enum: ['weak', 'resist', 'absorb'],
     //     }
     // }],
-    skills: Array //foreign key//       
+    skills: [
+        {
+            type: ObjectId,
+            ref: 'Skill',
+            required: true,
+        }
+    ]       
 });
+
+var Persona = mongoose.model('Persona', personaSchema);
+
+module.exports = Persona;
