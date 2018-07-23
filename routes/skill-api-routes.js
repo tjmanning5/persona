@@ -60,7 +60,7 @@ module.exports = function (app) {
 
     app.put('/api/skill.json', function (req, res) {
 
-        Skill.findOne({ _id: req.body.id }, function(err, skillDoc) {
+        Skill.findOne({ _id: req.body.id }, function (err, skillDoc) {
             if (err) throw err;
 
             if (req.body.name) {
@@ -76,7 +76,7 @@ module.exports = function (app) {
                 skillDoc.cost = req.body.cost;
             }
 
-            skillDoc.save(function (err, result){
+            skillDoc.save(function (err, result) {
                 if (err) throw err;
 
                 res.json(result);
@@ -86,11 +86,11 @@ module.exports = function (app) {
 
     app.delete('/api/skill', function (req, res) {
 
-        Skill.deleteOne({ _id: req.query.id }, function(err, result) {
+        Skill.deleteOne({ _id: req.query.id }, function (err, result) {
             if (err) throw err;
 
             res.status(204);
-            res.end();            
+            res.end();
         });
     });
 }
