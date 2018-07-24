@@ -1,15 +1,100 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
-  <title></title>  
+  <title></title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0"> 
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <script src="jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
+  <div>
+    <div id="searchBar">
+      <form>
+        <input id="searchInput" type="text" value="P5 Persona Database" onfocus="this.value=''">
+        <input type="submit" value="Search Personas">
+      </form>
+    </div>
+    <div id="infoField">
+      <div id="name"> <h1>Name</h1></div>
+      <div id="level"><h2>Level</h2></div>
+      <div id="statsTable">
+        <h3>Stats</h3>
+        <table>
+          <tr>
+            <th>Strength</th>
+            <th>Magic</th>
+            <th>Endurance</th>
+            <th>Agility</th>
+            <th>Luck</th>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div id="elementalsTable">
+        <h3>Elementals</h3>
+        <table>
+          <tr>
+            <th>Physical</th>
+            <th>Gun</th>
+            <th>Fire</th>
+            <th>Ice</th>
+            <th>Electric</th>
+            <th>Wind</th>
+            <th>Psychic</th>
+            <th>Nuclear</th>
+            <th>Bless</th>
+            <th>Curse</th>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+        </table>
+      </div>
+      <div id="skillsList">
+        <ul>
+
+        </ul>
+
+      </div>
+      <h3>Fusion with this Persona as result</h3>
+      <div id="fusionFinal">
+        <ul>
+
+        </ul>
+      </div>
+      <h3>Fusion with this Persona as Ingredient</h3>
+      <div id="fusionIngredient">
+        <ul>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
   <script src="js/scripts.js"></script>
 </body>
+
 </html>
