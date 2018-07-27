@@ -22,18 +22,20 @@ var skillSchema = new Schema({
         type: String,
         required: true
     },
-    persona: [{
-        level: {
-            type: Number,
-            required: true
-            //set starting abilities to equal persona level from personaSchema
-        },
-        persona_id: {
-            type: ObjectId,
-            ref: 'Persona',
-            required: true
+    persona: [
+        {
+            level: {
+                type: Number,
+                required: true
+                //set starting abilities to equal persona level from personaSchema
+            },
+            persona_id: {
+                type: ObjectId,
+                ref: 'Persona',
+                required: true
+            }
         }
-    }]
+    ]
 });
 
 var Skill = mongoose.model('Skill', skillSchema);

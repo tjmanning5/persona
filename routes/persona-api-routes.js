@@ -7,16 +7,41 @@ module.exports = function (app) {
         var newPersona = {
             name: req.body.name,
             level: req.body.level,
-            stats:, //help
-            elementals:, //help
-        };
+        }
 
-        Peronsa.create(newPersona, function (err, result) {
+        if (req.body.stats) {
+            newPersona.stats = {
+                strength: req.body.strength,
+                magic: req.body.magic,
+                endurance: req.body.endurance,
+                agility: req.body.agility,
+                luck: req.body.luck
+            }
+        }
+        if (req.body.elementals) {
+            newPersona.elementals = {
+                elementals: {
+                    physical: req.body.physical || null,
+                    gun: req.body.gun || null,
+                    fire: req.body.fire || null,
+                    ice: req.body.ice || null,
+                    electric: req.body.electric || null,
+                    wind: req.body.wind || null,
+                    psychic: req.body.psychic || null,
+                    nuclear: req.body.nuclear || null,
+                    bless: req.body.bless || null,
+                    curse: req.body.curse || null
+                }
+            }
+        }
+        Persona.create(newPersona, function (err, result) {
             if (err) throw err;
 
             res.json(result);
         });
     });
+
+
 
     app.get('/api/persona.json', function (req, res) {
         Persona.findOne({ _id: req.query.id }, function (err, result) {
@@ -31,15 +56,15 @@ module.exports = function (app) {
         var personaQuery = {};
 
         if (req.query.name) {
-            skillQuery.name = req.query.name;
+            personaQuery.name = req.query.name;
         }
 
         if (req.query.level) {
-            skillQuery.level = req.query.name;
+            personaQuery.level = req.query.name;
         }
 
         if (req.query.elementals) {
-            skillQuery.elementals = req.query.elementals;
+            personaQuery.elementals = req.query.elementals;
         }
 
         var skip = parseInt(req.query.skip) || 0;
@@ -47,7 +72,7 @@ module.exports = function (app) {
         var limit = parseInt(req.query.limit) || 25;
 
         Persona
-            .find(skillQuery)
+            .find(personaQuery)
             .skip(skip)
             .limit(limit)
             .exec(function (err, results) {
@@ -67,11 +92,30 @@ module.exports = function (app) {
             if (req.body.level) {
                 personaDoc.level = req.body.level;
             }
+
             if (req.body.stats) {
-                personaDoc.stats = req.body.stats; //help
+                personaDoc.stats = {
+                    strength: req.body.stats.strength,
+                    magic: req.body.stats.magic,
+                    endurance: req.body.stats.endurance,
+                    agility: req.body.stats.agility,
+                    luck: req.body.stats.luck
+                };
             }
+
             if (req.body.elementals) {
-                personaDoc.elementals = req.body.elementals; //help
+                personaDoc.elementals = {
+                    physical: req.body.elementals.physical || null,
+                    gun: req.body.elementals.gun || null,
+                    fire: req.body.elementals.fire || null,
+                    ice: req.body.elementals.ice || null,
+                    electric: req.body.elementals.electric || null,
+                    wind: req.body.elementals.wind || null,
+                    psychic: req.body.elementals.psychic || null,
+                    nuclear: req.body.elementals.nuclear || null,
+                    bless: req.body.elementals.bless || null,
+                    curse: req.body.elementals.curse || null
+                };
             }
 
             personaDoc.save(function (err, result) {

@@ -84,6 +84,40 @@ module.exports = function (app) {
         });
     });
 
+    app.put('/api/skill/add_persona.json', function (req, res) {
+
+        Skill.findOne({ _id: req.body.id }, function (err, result) {
+            if (err) throw err;
+
+            result.persona.push({level: req.body.level, persona_id: req.body.persona_id});
+
+            result.save(function (err, result) {
+                if (err) throw err;
+
+                res.json(result);
+            });
+        });
+    });
+
+    app.put('/api/skill/remove_persona.json', function (req, res) {
+
+        Skill.findOne({ _id: req.body.id }, function (err, result) {
+            if (err) throw err;
+
+            var index = result.persona.findIndex(function (element) {
+                return element.persona_id === req.body.persona_id
+            });
+
+            result.persona.splice(index, 1);
+
+            result.save(function (err, result) {
+                if (err) throw err;
+
+                res.json(result);
+            });
+        });
+    });
+
     app.delete('/api/skill', function (req, res) {
 
         Skill.deleteOne({ _id: req.query.id }, function (err, result) {
