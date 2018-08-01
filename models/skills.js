@@ -9,8 +9,7 @@ var skillSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
-        // todo: make enum
+    type: {       
         type: String,
         required: true
     },
