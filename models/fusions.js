@@ -16,7 +16,7 @@ var fusionSchema = new Schema ({
             required: true
         }    
     ],
-    result: {
+    output: {
         type: ObjectId,
         ref: 'Persona',
         required: true
