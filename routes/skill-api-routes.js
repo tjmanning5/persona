@@ -1,4 +1,5 @@
 var Skill = require(ROOT + '/models/skills.js');
+var _ = require('lodash');
 
 //todo: add persona foreign key
 
@@ -89,13 +90,25 @@ module.exports = function (app) {
         Skill.findOne({ _id: req.body.id }, function (err, result) {
             if (err) throw err;
 
-            result.persona.push({level: req.body.level, persona_id: req.body.persona_id});
+            var find = _.find(result.persona, _.matchesProperty('persona_id', req.body.persona_id));
 
-            result.save(function (err, result) {
-                if (err) throw err;
+            if (find !== undefined) {
 
-                res.json(result);
-            });
+                console.log('Duplicate entry');
+                res.status(400);
+                res.end();
+
+            } else {
+
+                result.persona.push({ level: req.body.level, persona_id: req.body.persona_id });
+
+                result.save(function (err, result) {
+                    if (err) throw err;
+
+                    res.json(result);
+                });
+            }
+
         });
     });
 
@@ -107,14 +120,20 @@ module.exports = function (app) {
             var index = result.persona.findIndex(function (element) {
                 return element.persona_id === req.body.persona_id
             });
+            if (index < 0) {
+                console.log('No Persona entry found')
+                res.status(400)
+                res.end();
+            } else {
+                result.persona.splice(index, 1);
 
-            result.persona.splice(index, 1);
+                result.save(function (err, result) {
+                    if (err) throw err;
 
-            result.save(function (err, result) {
-                if (err) throw err;
+                    res.json(result);
 
-                res.json(result);
-            });
+                });
+            }
         });
     });
 

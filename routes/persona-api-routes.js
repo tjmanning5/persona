@@ -34,6 +34,7 @@ module.exports = function (app) {
                 }
             }
         }
+        
         Persona.create(newPersona, function (err, result) {
             if (err) throw err;
 
