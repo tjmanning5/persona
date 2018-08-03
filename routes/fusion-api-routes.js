@@ -1,4 +1,5 @@
 var Fusion = require(ROOT + '/models/skills.js');
+var _ = require('lodash');
 
 module.exports = function (app) {
 
@@ -19,7 +20,7 @@ module.exports = function (app) {
 
             cost: req.body.cost,
             // instead of just one ingredient, let's accept an array of ingredient _ids from the request (such as in the example above). Remember to refer to your Schema's to make sure the format of your document here matches the format of the schema. So for example, in our Schema we have 'ingredients' instead of 'ingredient' and it's an array.
-            ingredient: req.body.ingredient,
+            ingredients: req.body.ingredients,
             // here's what I would do instead of the above line (again assuming the above request example format):
             // ingredients: req.body.ingredients
             // so req.body.ingredients is an array (seen in the example on line 11) so we can just save that whole array from the request to the document, and not have to make multiple calls. So we can add all the _ids at once, instead of one at a time.
@@ -40,7 +41,7 @@ module.exports = function (app) {
             if (err) throw err;
 
             // syntax yo. You dropped these () 
-            res.json.result;
+            res.json(result);
             // also i figured out how to use emojis in VScode 😎💃💯💰
         });
     });
@@ -98,6 +99,52 @@ module.exports = function (app) {
     });
 
     // Here you could add in two more put routes, that's almost the exact same as your add/remove persona routes in the Skill API. The only difference would really be instead of manipulating the persona array on the skill document, you would be manipulating the ingredients array on the fusion document.
+
+    app.put('/api/fusion/add_ingredient.json', function(req, res) {
+
+        Fusion.findOne({ _id: req.body.id }, function (err, result) {
+            if (err) throw err;
+
+            var find = result.ingredients.indexOf(req.body.ingredient_id);
+
+            if (find > 0) {
+                console.log('Duplicate entry');
+                res.status(400);
+                res.end();
+            } else {
+                result.ingredients.push(req.body.ingredient_id);
+
+                result.save(function (err, result) {
+                    if (err) throw err;
+
+                    res.json(result);
+                });
+            }
+        });
+    });    
+
+    app.put('/api/fusion/remove_ingredient.json', function(req, res) {
+
+        Fusion.findOne({ _id: req.body.id }, function(err, result) {
+            if (err) throw err;
+
+            var index = result.ingredients.indexOf(req.body.ingredient_id);
+
+            if (index < 0) {
+                console.log('Ingredient not found');
+                res.status(400);
+                res.end();
+            } else {
+                result.ingredients.splice(index, 1);
+
+                result.save(function(err, result) {
+                    if (err) throw err;
+                    res.json(result);
+                })
+            }
+        });
+
+    });     
 
     app.delete('/api/fusion', function (req, res) {
 
