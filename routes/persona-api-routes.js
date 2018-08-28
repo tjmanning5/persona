@@ -3,6 +3,7 @@ var Persona = require(ROOT + '/models/persona.js');
 module.exports = function (app) {
 
     app.post('/api/persona.json', function (req, res) {
+        
 
         var newPersona = {
             name: req.body.name,
@@ -11,26 +12,26 @@ module.exports = function (app) {
 
         if (req.body.stats) {
             newPersona.stats = {
-                strength: req.body.strength,
-                magic: req.body.magic,
-                endurance: req.body.endurance,
-                agility: req.body.agility,
-                luck: req.body.luck
+                strength: req.body.stats.strength,
+                magic: req.body.stats.magic,
+                endurance: req.body.stats.endurance,
+                agility: req.body.stats.agility,
+                luck: req.body.stats.luck
             }
         }
         if (req.body.elementals) {
             newPersona.elementals = {
                 elementals: {
-                    physical: req.body.physical || null,
-                    gun: req.body.gun || null,
-                    fire: req.body.fire || null,
-                    ice: req.body.ice || null,
-                    electric: req.body.electric || null,
-                    wind: req.body.wind || null,
-                    psychic: req.body.psychic || null,
-                    nuclear: req.body.nuclear || null,
-                    bless: req.body.bless || null,
-                    curse: req.body.curse || null
+                    physical: req.body.elementals.physical || null,
+                    gun: req.body.elementals.gun || null,
+                    fire: req.body.elementals.fire || null,
+                    ice: req.body.elementals.ice || null,
+                    electric: req.elementals.body.electric || null,
+                    wind: req.body.elementals.wind || null,
+                    psychic: req.body.elementals.psychic || null,
+                    nuclear: req.body.elementals.nuclear || null,
+                    bless: req.body.elementals.bless || null,
+                    curse: req.body.elementals.curse || null
                 }
             }
         }
