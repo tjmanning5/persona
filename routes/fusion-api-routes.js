@@ -1,29 +1,14 @@
-var Fusion = require(ROOT + '/models/skills.js');
+var Fusion = require(ROOT + '/models/fusions.js');
 var _ = require('lodash');
 
 module.exports = function (app) {
 
-    app.post('/api/fusion.json', function (req, res) {
-
-        // imagine that this is your example API request
-        // req.body = {
-        //     cost: 1200,
-        //     output: 1234987h23kjbsf9879sdf,
-        //     ingredients: [
-        //         592348hkjgbs8g79f6wer9,
-        //         239kng987erg93n43345ge,
-        //         kjfhnskeruihoe89387459
-        //     ]
-        // }
+    app.post('/api/fusion.json', function (req, res) {       
 
         var newFusion = {
 
-            cost: req.body.cost,
-            // instead of just one ingredient, let's accept an array of ingredient _ids from the request (such as in the example above). Remember to refer to your Schema's to make sure the format of your document here matches the format of the schema. So for example, in our Schema we have 'ingredients' instead of 'ingredient' and it's an array.
-            ingredients: req.body.ingredients,
-            // here's what I would do instead of the above line (again assuming the above request example format):
-            // ingredients: req.body.ingredients
-            // so req.body.ingredients is an array (seen in the example on line 11) so we can just save that whole array from the request to the document, and not have to make multiple calls. So we can add all the _ids at once, instead of one at a time.
+            cost: req.body.cost,           
+            ingredients: req.body.ingredients,           
             output: req.body.output
 
         };
@@ -148,7 +133,7 @@ module.exports = function (app) {
 
     app.delete('/api/fusion', function (req, res) {
 
-        Fusion.deleteOne({ _di: req.qeury.id }, function (err, result) {
+        Fusion.deleteOne({ _id: req.query.id }, function (err, result) {
             if(err) throw err;
 
             res.status(204);

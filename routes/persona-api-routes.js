@@ -3,7 +3,7 @@ var Persona = require(ROOT + '/models/persona.js');
 module.exports = function (app) {
 
     app.post('/api/persona.json', function (req, res) {
-        
+
 
         var newPersona = {
             name: req.body.name,
@@ -19,23 +19,26 @@ module.exports = function (app) {
                 luck: req.body.stats.luck
             }
         }
+
+        console.log(req.body.elementals.physical);
+
         if (req.body.elementals) {
             newPersona.elementals = {
-                elementals: {
-                    physical: req.body.elementals.physical || null,
-                    gun: req.body.elementals.gun || null,
-                    fire: req.body.elementals.fire || null,
-                    ice: req.body.elementals.ice || null,
-                    electric: req.elementals.body.electric || null,
-                    wind: req.body.elementals.wind || null,
-                    psychic: req.body.elementals.psychic || null,
-                    nuclear: req.body.elementals.nuclear || null,
-                    bless: req.body.elementals.bless || null,
-                    curse: req.body.elementals.curse || null
-                }
+                physical: req.body.elementals.physical || null,
+                gun: req.body.elementals.gun || null,
+                fire: req.body.elementals.fire || null,
+                ice: req.body.elementals.ice || null,
+                electric: req.body.elementals.electric || null,
+                wind: req.body.elementals.wind || null,
+                psychic: req.body.elementals.psychic || null,
+                nuclear: req.body.elementals.nuclear || null,
+                bless: req.body.elementals.bless || null,
+                curse: req.body.elementals.curse || null
             }
         }
-        
+
+        console.log(newPersona);
+
         Persona.create(newPersona, function (err, result) {
             if (err) throw err;
 
@@ -128,9 +131,9 @@ module.exports = function (app) {
         });
     });
 
-    app.delete('api/persona', function (req, res) {
+    app.delete('/api/persona', function (req, res) {
 
-        Persona.deleteOne({ _id: req.qeury.id }, function (err, result) {
+        Persona.deleteOne({ _id: req.query.id }, function (err, result) {
             if (err) throw err;
 
             res.status(204);
